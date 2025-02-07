@@ -1,2 +1,6 @@
 # re-energize
 School Project
+
+
+WELCOME TO OUR PROJECT. 
+THIS PROJECT IS FOR SCOOL AND VERY COOL!! 😁
