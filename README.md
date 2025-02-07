@@ -1,2 +1,2 @@
 # re-energize
-School Projetc
+School Project
