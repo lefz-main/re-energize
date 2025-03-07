@@ -1,5 +1,15 @@
-// 1. Initialiseer de Leaflet-kaart op Scheveningen
-var map = L.map('map').setView([52.1117, 4.2817], 13); 
+// 1. Initialiseer de Leaflet-kaart op Scheveningen met een bepaald zoomniveau
+var map = L.map('map', {
+    center: [52.1117, 4.2817], // Zet de startlocatie op Scheveningen
+    zoom: -10, // Stel het zoomniveau in (hoe groter het nummer, hoe dichter je inzoomt)
+    maxZoom: 16, // Maximale zoom (bijvoorbeeld 16 is redelijk ver ingezoomd)
+    minZoom: 12, // Minimale zoom (je kunt dit naar behoefte aanpassen)
+    maxBounds: [
+        [51.9, 4.1],  // Zuidwestelijke grens van het zichtbare gebied
+        [52.3, 4.5]   // Noordoostelijke grens van het zichtbare gebied
+    ], // Dit bepaalt het gebied waarin de kaart kan pannen
+    maxBoundsViscosity: 1.0 // Voorkomt dat de kaart buiten de grenzen wordt verplaatst
+});
 
 // 2. Voeg OpenStreetMap-kaartlaag toe
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
