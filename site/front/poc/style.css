@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+#map {
+    width: 700px;  /* Stel de breedte in */
+    height: 700px; /* Stel de hoogte in, zodat het een vierkant wordt */
+    margin: auto;  /* Centreert de kaart horizontaal */
+    border: 2px solid black; /* Optioneel, voeg een rand toe voor duidelijkheid */
+}
+
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#weatherInfo {
+    margin-top: 10px;
+    font-size: 18px;
+}
