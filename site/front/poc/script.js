@@ -37,8 +37,14 @@ async function fetchWeather(lat, lon) {
     }
 }
 
-// 5. Voeg event listener toe aan de knop
+// 5. Voeg event listener toe aan de knop voor het weer
 document.getElementById("getWeather").addEventListener("click", function() {
     let latlng = marker.getLatLng();
     fetchWeather(latlng.lat, latlng.lng);
+});
+
+// 6. Voeg event listener toe aan de reset-knop om de kaart te resetten naar de startlocatie
+document.getElementById("resetMap").addEventListener("click", function() {
+    // Zet de kaart terug naar de startpositie (Scheveningen)
+    map.setView([52.1117, 4.2817], -10); // Startlocatie en zoomniveau
 });
