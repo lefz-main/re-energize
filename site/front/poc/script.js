@@ -1,13 +1,13 @@
-// 1. Initialiseer de Leaflet-kaart
-var map = L.map('map').setView([52.3676, 4.9041], 10); // Amsterdam als startlocatie
+// 1. Initialiseer de Leaflet-kaart op Scheveningen
+var map = L.map('map').setView([52.1117, 4.2817], 13); 
 
 // 2. Voeg OpenStreetMap-kaartlaag toe
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// 3. Voeg een klikbare marker toe
-var marker = L.marker([52.3676, 4.9041], { draggable: true }).addTo(map)
+// 3. Voeg een sleepbare marker toe op Scheveningen
+var marker = L.marker([52.1117, 4.2817], { draggable: true }).addTo(map)
     .bindPopup("Sleep mij en klik op de knop om het weer te zien!");
 
 // 4. Functie om weergegevens op te halen

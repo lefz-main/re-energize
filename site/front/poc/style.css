@@ -5,11 +5,12 @@ body {
 }
 
 #map {
-    height: 500px;
-    width: 80%;
-    margin: auto;
-    border: 2px solid black;
+    width: 700px;  /* Stel de breedte in */
+    height: 700px; /* Stel de hoogte in, zodat het een vierkant wordt */
+    margin: auto;  /* Centreert de kaart horizontaal */
+    border: 2px solid black; /* Optioneel, voeg een rand toe voor duidelijkheid */
 }
+
 
 button {
     margin-top: 10px;
