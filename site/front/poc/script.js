@@ -1,5 +1,5 @@
 // Configuratie ophalen uit JSON
-fetch("config.json")
+fetch("KaartConfig.json")
     .then(response => response.json())
     .then(config => {
         // 1. Initialiseer de Leaflet-kaart met de instellingen uit config.json
