@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Re-Energize 
+    <title>Re-Energize Championship</title>
 
-- [ ] Championship</title>
-
-    
     <!-- Leaflet.js CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css">
@@ -18,13 +15,16 @@
 <body>
 
     <h1>Interactieve Kaart met Weerdata</h1>
-    
+
+    <div id="objectMenu">
+        <img id="windmillSelect" src="windmill.png" class="menu-item selected" onclick="selectObject('windmill')">
+        <img id="solarPanelSelect" src="zonnepaneel.png" class="menu-item" onclick="selectObject('solarpanel')">
+    </div>
+
     <div id="map"></div>
     <button id="getWeather">Weer opvragen</button>
     <button id="resetMap">Reset Kaart</button>
     <p id="weatherInfo">Klik op de knop om weergegevens op te halen.</p>
-    
-
 
     <script src="script.js"></script>
 </body>
