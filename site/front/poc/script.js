@@ -33,7 +33,7 @@ fetch("KaartConfig.json")
         });
 
         // Functie voor het selecteren van het object
-        function selectObject(type) {
+        window.selectObject = function(type) {
             console.log("selectObject aangeroepen, type:", type); // Debugging
 
             currentObject = type;
