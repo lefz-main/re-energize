@@ -1,0 +1,5 @@
+BackEnd\mainAPI\verwerker.class
+FrontEnd\UIStarter.class
+BackEnd\infoGetter\getInfo.class
+BackEnd\mainAPIConnector.class
+org\ReEnergizeRace\Main.class
