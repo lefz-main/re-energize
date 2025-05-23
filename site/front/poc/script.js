@@ -14,11 +14,16 @@ fetch("KaartConfig.json")
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
+        let currentPlacements = 0;
         let windmills = [];
         let solarpanels = [];
         let currentObject = "windmill";
         let gridPoints = [];
         const gridSpacing = 0.01;
+
+        let guessesLeft = 15;
+        let maxPlacements = 15;
+        let isGameOver = false;
 
         const windmillIcon = L.icon({
             iconUrl: 'windmill.png',
@@ -46,10 +51,9 @@ fetch("KaartConfig.json")
             const R = 6371;
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLng = (lng2 - lng1) * Math.PI / 180;
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                Math.sin(dLng / 2) * Math.sin(dLng / 2);
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLng / 2) * Math.sin(dLng / 2);
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             return R * c;
         }
@@ -68,19 +72,31 @@ fetch("KaartConfig.json")
         }
 
         function addWindmill(lat, lng) {
+            if (isGameOver || guessesLeft <= 0) return;
             const bonus = getClosestGridValue(lat, lng);
-            const marker = L.marker([lat, lng], { icon: windmillIcon, draggable: true }).addTo(map)
+            const marker = L.marker([lat, lng], { icon: windmillIcon, draggable: false }).addTo(map)
                 .bindPopup(`Windmolen geplaatst! Gridwaarde: ${bonus}`);
             windmills.push({ marker, lat, lng, power: 0, bonus });
+            updateGuesses();
             calculatePower();
         }
 
         function addSolarPanel(lat, lng) {
+            if (isGameOver || guessesLeft <= 0) return;
             const bonus = getClosestGridValue(lat, lng);
-            const marker = L.marker([lat, lng], { icon: solarPanelIcon, draggable: true }).addTo(map)
+            const marker = L.marker([lat, lng], { icon: solarPanelIcon, draggable: false }).addTo(map)
                 .bindPopup(`Zonnepaneel geplaatst! Gridwaarde: ${bonus}`);
             solarpanels.push({ marker, lat, lng, power: 0, bonus });
+            updateGuesses();
             calculatePower();
+        }
+
+        function updateGuesses() {
+            guessesLeft--;
+            if (guessesLeft <= 0) {
+                isGameOver = true;
+                document.getElementById("weatherInfo").innerText += " | 🎯 Max aantal plaatsingen bereikt!";
+            }
         }
 
         async function calculatePower() {
@@ -131,20 +147,37 @@ fetch("KaartConfig.json")
         }
 
         map.on('click', function (e) {
+            if (isGameOver || currentPlacements >= maxPlacements) {
+                document.getElementById("maxGuessesReached").style.display = "block";
+                return;
+            }
+
             if (currentObject === "windmill") {
                 addWindmill(e.latlng.lat, e.latlng.lng);
             } else if (currentObject === "solarpanel") {
                 addSolarPanel(e.latlng.lat, e.latlng.lng);
+            }
+
+            currentPlacements++;
+            document.getElementById("remainingGuesses").innerText = maxPlacements - currentPlacements;
+
+            if (currentPlacements >= maxPlacements) {
+                document.getElementById("maxGuessesReached").style.display = "block";
             }
         });
 
         document.getElementById("getWeather").addEventListener("click", calculatePower);
 
         document.getElementById("resetMap").addEventListener("click", function () {
+            currentPlacements = 0;
+            guessesLeft = 15;
+            isGameOver = false;
             windmills.forEach(wm => map.removeLayer(wm.marker));
             solarpanels.forEach(sp => map.removeLayer(sp.marker));
             windmills = [];
             solarpanels = [];
+            document.getElementById("remainingGuesses").innerText = maxPlacements;
+            document.getElementById("maxGuessesReached").style.display = "none";
             map.setView(config.center, config.zoom);
             document.getElementById("weatherInfo").innerText = "";
             updateScoreDisplay(0);
