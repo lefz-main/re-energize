@@ -1,6 +1,8 @@
 fetch("KaartConfig.json")
     .then(response => response.json())
     .then(config => {
+        document.getElementById("maxGuessesReached").style.display = "none";
+
         const map = L.map('map', {
             center: config.center,
             zoom: config.zoom,
@@ -166,7 +168,7 @@ fetch("KaartConfig.json")
             }
         });
 
-        document.getElementById("getWeather").addEventListener("click", calculatePower);
+        document.getElementById("zieScore").addEventListener("click", calculatePower);
 
         document.getElementById("resetMap").addEventListener("click", function () {
             currentPlacements = 0;
@@ -187,3 +189,23 @@ fetch("KaartConfig.json")
         selectObject("windmill");
     })
     .catch(error => console.error("Fout bij laden van KaartConfig.json", error));
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("https://weerlive.nl/api/weerlive_api_v2.php?key=9f3afbd842&locatie=52.10416,4.28922")
+        .then(response => response.json())
+        .then(data => {
+            const live = data.liveweer[0];
+            document.getElementById('temp').textContent = live.temp;
+            document.getElementById('wind').textContent = live.windkmh + " KM/U";
+            document.getElementById('windr').textContent = live.windr;
+            document.getElementById('description').textContent = live.samenv;
+
+            // Optioneel: vervang de instructietekst met succesmelding
+            document.getElementById('weatherInfo').textContent = "Weerdata bijgewerkt!";
+        })
+        .catch(error => {
+            console.error("Fout bij ophalen weerdata:", error);
+            document.getElementById('weatherInfo').textContent = "Fout bij het ophalen van de weergegevens.";
+        });
+});
+

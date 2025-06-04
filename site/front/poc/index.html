@@ -16,27 +16,43 @@
 
     <h1>Interactieve Kaart met Weerdata</h1>
 
-    <div id="objectMenu">
-        <img id="windmillSelect" src="windmill.png" class="menu-item selected" onclick="selectObject('windmill')">
-        <img id="solarpanelSelect" src="zonnepaneel.png" class="menu-item" onclick="selectObject('solarpanel')">
-    </div>
+    <div class="container">
+        <!-- Linkerkant: Kaart + controls -->
+        <div class="map-side">
+            <div id="objectMenu">
+                <img id="windmillSelect" src="windmill.png" class="menu-item selected" onclick="selectObject('windmill')">
+                <img id="solarpanelSelect" src="zonnepaneel.png" class="menu-item" onclick="selectObject('solarpanel')">
+            </div>
 
-    <div id="map"></div>
-    <div id="scoreDisplay" style="font-size: 18px; margin-top: 10px; font-weight: bold;">
-        ⚡ Totale Opbrengst: 0 kWh
-    </div>
+            <div id="map"></div>
+            <div id="scoreDisplay">
+                ⚡ Totale Opbrengst: 0 kWh
+            </div>
 
-    <button id="getWeather">zie score</button>
-    <button id="resetMap">Reset Kaart</button>
-    <p id="weatherInfo">Klik op de knop om weergegevens op te halen.</p>
-    <div id="guessCountDisplay" style="margin-top: 10px; font-size: 16px;">
-        📍 Plaatsingen over: <span id="remainingGuesses">15</span> / 15
-    </div>
-    <div id="maxGuessesReached" style="color: red; font-weight: bold; display: none;">
-        🚫 Je hebt het maximale aantal plaatsingen bereikt!
-    </div>
+            <button id="zieScore">zie score</button>
+            <button id="resetMap">Reset Kaart</button>
+            <p id="weatherInfo">Klik op de knop om weergegevens op te halen.</p>
+            <div id="guessCountDisplay">
+                📍 Plaatsingen over: <span id="remainingGuesses">15</span> / 15
+            </div>
+            <div id="maxGuessesReached">
+                🚫 Je hebt het maximale aantal plaatsingen bereikt!
+            </div>
+        </div>
 
+        <!-- Rechterkant: Weerinfo -->
+        <div class="weather-side">
+            <h2>📊 Huidige Weerdata</h2>
+            <div id="weatherData">
+                <p><strong>Temperatuur:</strong> <span id="temp">-</span> °C</p>
+                <p><strong>Windkracht:</strong> <span id="wind">-</span> </p>
+                <p><strong>Windrichting:</strong> <span id="windr">-</span></p>
+                <p><strong>Beschrijving:</strong> <span id="description">-</span></p>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
 </html>
+
