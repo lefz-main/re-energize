@@ -1,7 +1,9 @@
 <?php
 require_once '../php/Client.php';
 
-$client = new Client();
-$client->send("Naam", "test naam");
-$client->get("Naam");
-$client->delete("Naam");
+Client::send("test", "send test");
+Client::get("test");
+Client::send("test", "edit test");
+Client::get("test");
+Client::delete("test"); // delete test
+Client::get("test");
