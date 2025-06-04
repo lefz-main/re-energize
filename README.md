@@ -7,4 +7,5 @@ optie 1: zelf hosten
 2. start het bestand /site/front/poc/index.html
 
 optie 2: website
+
 ga naar https://re-energize.diongierman.nl/
