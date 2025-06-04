@@ -22,9 +22,20 @@
     </div>
 
     <div id="map"></div>
-    <button id="getWeather">Weer opvragen</button>
+    <div id="scoreDisplay" style="font-size: 18px; margin-top: 10px; font-weight: bold;">
+        ⚡ Totale Opbrengst: 0 kWh
+    </div>
+
+    <button id="getWeather">zie score</button>
     <button id="resetMap">Reset Kaart</button>
     <p id="weatherInfo">Klik op de knop om weergegevens op te halen.</p>
+    <div id="guessCountDisplay" style="margin-top: 10px; font-size: 16px;">
+        📍 Plaatsingen over: <span id="remainingGuesses">15</span> / 15
+    </div>
+    <div id="maxGuessesReached" style="color: red; font-weight: bold; display: none;">
+        🚫 Je hebt het maximale aantal plaatsingen bereikt!
+    </div>
+
 
     <script src="script.js"></script>
 </body>
