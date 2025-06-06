@@ -1,7 +1,7 @@
-fetch("KaartConfig.json")
+fetch('KaartConfig.json')
     .then(response => response.json())
     .then(config => {
-        document.getElementById("maxGuessesReached").style.display = "none";
+        document.getElementById('maxGuessesReached').style.display = 'none';
 
         const map = L.map('map', {
             center: config.center,
@@ -19,7 +19,7 @@ fetch("KaartConfig.json")
         let currentPlacements = 0;
         let windmills = [];
         let solarpanels = [];
-        let currentObject = "windmill";
+        let currentObject = 'windmill';
         let gridPoints = [];
         const gridSpacing = 0.01;
 
@@ -43,10 +43,10 @@ fetch("KaartConfig.json")
 
         window.selectObject = function (type) {
             currentObject = type;
-            document.querySelectorAll(".menu-item").forEach(item => {
-                item.classList.remove("selected");
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('selected');
             });
-            document.getElementById(type + "Select").classList.add("selected");
+            document.getElementById(type + 'Select').classList.add('selected');
         }
 
         function distance(lat1, lng1, lat2, lng2) {
@@ -77,7 +77,7 @@ fetch("KaartConfig.json")
             if (isGameOver || guessesLeft <= 0) return;
             const bonus = getClosestGridValue(lat, lng);
             const marker = L.marker([lat, lng], { icon: windmillIcon, draggable: false }).addTo(map)
-                .bindPopup(`Windmolen geplaatst! Gridwaarde: ${bonus}`);
+                .bindPopup('Windmolen geplaatst! Gridwaarde: ${bonus}');
             windmills.push({ marker, lat, lng, power: 0, bonus });
             updateGuesses();
             calculatePower();
@@ -87,7 +87,7 @@ fetch("KaartConfig.json")
             if (isGameOver || guessesLeft <= 0) return;
             const bonus = getClosestGridValue(lat, lng);
             const marker = L.marker([lat, lng], { icon: solarPanelIcon, draggable: false }).addTo(map)
-                .bindPopup(`Zonnepaneel geplaatst! Gridwaarde: ${bonus}`);
+                .bindPopup('Zonnepaneel geplaatst! Gridwaarde: ${bonus}');
             solarpanels.push({ marker, lat, lng, power: 0, bonus });
             updateGuesses();
             calculatePower();
@@ -97,7 +97,7 @@ fetch("KaartConfig.json")
             guessesLeft--;
             if (guessesLeft <= 0) {
                 isGameOver = true;
-                document.getElementById("weatherInfo").innerText += " | 🎯 Max aantal plaatsingen bereikt!";
+                document.getElementById('weatherInfo').innerText += ' | 🎯 Max aantal plaatsingen bereikt!';
             }
         }
 
@@ -131,11 +131,11 @@ fetch("KaartConfig.json")
             const all = [...windmills, ...solarpanels];
             if (all.length === 0) return;
             const winner = all.reduce((max, obj) => obj.power > max.power ? obj : max, all[0]);
-            document.getElementById("weatherInfo").innerText = `🏆 Hoogste opbrengst: ${winner.power.toFixed(2)} kWh!`;
+            document.getElementById('weatherInfo').innerText = `🏆 Hoogste opbrengst: ${winner.power.toFixed(2)} kWh!`;
         }
 
         function updateScoreDisplay(score) {
-            const display = document.getElementById("scoreDisplay");
+            const display = document.getElementById('scoreDisplay');
             display.innerText = `⚡ Totale Opbrengst: ${score.toFixed(2)} kWh`;
         }
 
@@ -153,27 +153,27 @@ fetch("KaartConfig.json")
 
         map.on('click', function (e) {
             if (isGameOver || currentPlacements >= maxPlacements) {
-                document.getElementById("maxGuessesReached").style.display = "block";
+                document.getElementById('maxGuessesReached').style.display = 'block';
                 return;
             }
 
-            if (currentObject === "windmill") {
+            if (currentObject === 'windmill') {
                 addWindmill(e.latlng.lat, e.latlng.lng);
-            } else if (currentObject === "solarpanel") {
+            } else if (currentObject === 'solarpanel') {
                 addSolarPanel(e.latlng.lat, e.latlng.lng);
             }
 
             currentPlacements++;
-            document.getElementById("remainingGuesses").innerText = maxPlacements - currentPlacements;
+            document.getElementById('remainingGuesses').innerText = maxPlacements - currentPlacements;
 
             if (currentPlacements >= maxPlacements) {
-                document.getElementById("maxGuessesReached").style.display = "block";
+                document.getElementById('maxGuessesReached').style.display = 'block';
             }
         });
 
-        document.getElementById("zieScore").addEventListener("click", calculatePower);
+        document.getElementById('zieScore').addEventListener('click', calculatePower);
 
-        document.getElementById("resetMap").addEventListener("click", function () {
+        document.getElementById('resetMap').addEventListener('click', function () {
             currentPlacements = 0;
             guessesLeft = 15;
             isGameOver = false;
@@ -181,34 +181,34 @@ fetch("KaartConfig.json")
             solarpanels.forEach(sp => map.removeLayer(sp.marker));
             windmills = [];
             solarpanels = [];
-            document.getElementById("remainingGuesses").innerText = maxPlacements;
-            document.getElementById("maxGuessesReached").style.display = "none";
+            document.getElementById('remainingGuesses').innerText = maxPlacements;
+            document.getElementById('maxGuessesReached').style.display = 'none';
             map.setView(config.center, config.zoom);
-            document.getElementById("weatherInfo").innerText = "";
+            document.getElementById('weatherInfo').innerText = '';
             updateScoreDisplay(0);
         });
 
         generateGrid();
-        selectObject("windmill");
+        selectObject('windmill');
     })
-    .catch(error => console.error("Fout bij laden van KaartConfig.json", error));
+    .catch(error => console.error('Fout bij laden van KaartConfig.json', error));
 
-document.addEventListener("DOMContentLoaded", function () {
-    fetch("https://weerlive.nl/api/weerlive_api_v2.php?key=9f3afbd842&locatie=52.10416,4.28922")
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('https://weerlive.nl/api/weerlive_api_v2.php?key=9f3afbd842&locatie=52.10416,4.28922')
         .then(response => response.json())
         .then(data => {
             const live = data.liveweer[0];
             document.getElementById('temp').textContent = live.temp;
-            document.getElementById('wind').textContent = live.windkmh + " KM/U";
+            document.getElementById('wind').textContent = live.windkmh + ' KM/U';
             document.getElementById('windr').textContent = live.windr;
             document.getElementById('description').textContent = live.samenv;
 
             // Optioneel: vervang de instructietekst met succesmelding
-            document.getElementById('weatherInfo').textContent = "Weerdata bijgewerkt!";
+            document.getElementById('weatherInfo').textContent = 'Weerdata bijgewerkt!';
         })
         .catch(error => {
-            console.error("Fout bij ophalen weerdata:", error);
-            document.getElementById('weatherInfo').textContent = "Fout bij het ophalen van de weergegevens.";
+            console.error('Fout bij ophalen weerdata:', error);
+            document.getElementById('weatherInfo').textContent = 'Fout bij het ophalen van de weergegevens.';
         });
 });
 
