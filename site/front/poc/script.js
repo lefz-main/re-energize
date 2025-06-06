@@ -173,6 +173,7 @@ fetch('KaartConfig.json')
 
         document.getElementById('submitScore').addEventListener('click', function () {
             let name = prompt('Please enter your name:', 'BOEM KAKA');
+            totalPower = calculatePower();
             const xhttp = new XMLHttpRequest();
             xhttp.open('POST', `score.php?NAME=${name}&SCORE=${totalPower}`);
             xhttp.send();
