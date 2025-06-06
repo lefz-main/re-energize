@@ -124,7 +124,7 @@ fetch('KaartConfig.json')
 
             determineWinner();
             updateScoreDisplay(totalPower);
-            console.log(totalPower);
+            return totalPower;
         }
 
         function determineWinner() {
