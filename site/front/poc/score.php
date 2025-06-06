@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
 $servername = "localhost:3306";
 $username = "re-energize-db";
 $password = "CrazyWachtwoordVoorProject";
@@ -11,10 +15,17 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
+$name = $_POST['NAME'];
+$score = $_POST['SCORE'];
+
+if (!$score || !$name) {
+  die("Missing variable(s)");
+}
+
 $sql = "INSERT INTO scores (Name, Score) VALUES (?, ?)";
 $stmt = $conn->prepare($sql);
 if ($stmt) {
-  $stmt->bind_param('ss', $_POST['NAME'], $_POST['SCORE']);
+  $stmt->bind_param('sd', $name, $score);
   if ($stmt->execute()) {
     echo "New record created successfully";
   } else {
@@ -25,5 +36,4 @@ if ($stmt) {
   echo "Error: " . $conn->error;
 }
 
-$conn->close();
-?>
+$conn->close(); 

@@ -171,12 +171,13 @@ fetch('KaartConfig.json')
             }
         });
 
-        document.getElementById('submitScore').addEventListener('click', function () {
+        document.getElementById('submitScore').addEventListener('click', async function () {
             let name = prompt('Please enter your name:', 'BOEM KAKA');
-            totalPower = calculatePower();
+            const totalPower = await calculatePower();
             const xhttp = new XMLHttpRequest();
-            xhttp.open('POST', `score.php?NAME=${name}&SCORE=${totalPower}`);
-            xhttp.send();
+            xhttp.open('POST', 'score.php');
+            xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhttp.send(`NAME=${encodeURIComponent(name)}&SCORE=${encodeURIComponent(totalPower)}`);
         });
 
         document.getElementById('resetMap').addEventListener('click', function () {
