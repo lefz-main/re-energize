@@ -171,7 +171,12 @@ fetch('KaartConfig.json')
             }
         });
 
-        document.getElementById('zieScore').addEventListener('click', calculatePower);
+        document.getElementById('submitScore').addEventListener('click', function () {
+            let name = prompt('Please enter your name:', 'BOEM KAKA');
+            const xhttp = new XMLHttpRequest();
+            xhttp.open('POST', `score.php?NAME=${name}&SCORE=${totalPower}`);
+            xhttp.send();
+        });
 
         document.getElementById('resetMap').addEventListener('click', function () {
             currentPlacements = 0;
