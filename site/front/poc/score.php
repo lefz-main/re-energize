@@ -11,14 +11,18 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO scores (Name, Score
-VALUES (?, ?)";
-$sql.bind('ss', $_POST['NAME'], $_POST['SCORE'])
-
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
+$sql = "INSERT INTO scores (Name, Score) VALUES (?, ?)";
+$stmt = $conn->prepare($sql);
+if ($stmt) {
+  $stmt->bind_param('ss', $_POST['NAME'], $_POST['SCORE']);
+  if ($stmt->execute()) {
+    echo "New record created successfully";
+  } else {
+    echo "Error: " . $stmt->error;
+  }
+  $stmt->close();
 } else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
+  echo "Error: " . $conn->error;
 }
 
 $conn->close();
