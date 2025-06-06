@@ -105,23 +105,26 @@ fetch("KaartConfig.json")
             let totalPower = 0;
 
             for (const wm of windmills) {
-                const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${wm.lat}&longitude=${wm.lng}&current_weather=true`;
+                const apiUrl = 'https://weerlive.nl/api/weerlive_api_v2.php?key=9f3afbd842&locatie=52.10416,4.28922';
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                wm.power = data.current_weather.windspeed * 10 + wm.bonus;
+                const live = data.liveweer[0];
+                wm.power = live.windkmh * 10 + wm.bonus;
                 totalPower += wm.power;
             }
 
             for (const sp of solarpanels) {
-                const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${sp.lat}&longitude=${sp.lng}&current_weather=true`;
+                const apiUrl = 'https://weerlive.nl/api/weerlive_api_v2.php?key=9f3afbd842&locatie=52.10416,4.28922';
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                sp.power = data.current_weather.is_day ? data.current_weather.temperature * 5 + sp.bonus : sp.bonus;
+                const live = data.liveweer[0]
+                sp.power = live.sup ? live.temp * 5 + sp.bonus : sp.bonus;
                 totalPower += sp.power;
             }
 
             determineWinner();
             updateScoreDisplay(totalPower);
+            console.log(totalPower);
         }
 
         function determineWinner() {
