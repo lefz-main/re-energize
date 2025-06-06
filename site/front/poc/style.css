@@ -7,10 +7,10 @@ h1 {
     text-align: center;
 }
 
-.container {
+/*.container {
     display: flex;
     gap: 20px;
-}
+}*/
 
 .map-side {
     flex: 2;
